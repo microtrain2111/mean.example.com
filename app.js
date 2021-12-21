@@ -10,9 +10,10 @@ var config = require('./config.dev');
 var apiUsersRouter = require('./routes/api/users');
 
 var mongoose = require('mongoose');
-mongoose.connect(config.mongodb, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
 
 var app = express();
+
+mongoose.connect(config.mongodb, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
