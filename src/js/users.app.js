@@ -73,8 +73,8 @@ function createUser(){
             </div>
           </div>
           <div class="card-body">
-            <form id="registrationForm" class="card-body">
-              <div id="formMsg" class="alert alert-danger text-center">Your form has errors</div>
+            <form id="createUser" class="card-body">
+            <div id="formMsg" class="alert alert-danger text-center">Your form has errors</div>
   
               <div class="row">
                 <div class="form-group col-md-6">
@@ -111,6 +111,38 @@ function createUser(){
     app.innerHTML=form;
   }
 
+    function postRequest(formId, url){
+        let form = document.getElementById(formId);
+        form.addEventListener('submit', function(e){
+          e.preventDefault();
+    
+          let formData = new FormData(form);
+          let uri = `${window.location.origin}${url}`;
+          let xhr = new XMLHttpRequest();
+          xhr.open('POST', uri);
+    
+          xhr.setRequestHeader(
+            'Content-Type',
+            'application/json; charset=UTF-8'
+          );
+    
+          let object = {};
+          formData.forEach(function(value, key){
+            object[key]=value;
+          });
+    
+          xhr.send(JSON.stringify(object));
+          xhr.onload = function(){
+            let data = JSON.parse(xhr.response);
+            if(data.success===true){
+              window.location.href = '/';
+            }else{
+              document.getElementById('formMsg').style.display='block';
+            }
+          }
+        });
+      }
+
 return {
     load: function(){
         let hash = window.location.hash;
@@ -118,9 +150,10 @@ return {
       
         switch(hashArray[0]){
             case '#create':
-            createUser();
-            break;	    
-      
+                createUser();
+                postRequest('createUser', '/api/users');
+                break;
+                    
           case '#view':
             console.log('VIEW');
             break;
