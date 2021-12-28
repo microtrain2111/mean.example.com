@@ -1,8 +1,9 @@
 extends ../layout
 block content
   article
-    h1= article.title
+    h1= article[0].title
     div
-      //- var date = new Date(article.published).toISOString().slice(0, 19).replace('T', ' ');
-      //small Posted: #{date}
-    div!= article.title
+    if article[0].published
+        - var date = new Date(article[0].published).toISOString().slice(0, 19).replace('T', ' ');
+        small Posted: #{date}
+    div!= article[0].body
