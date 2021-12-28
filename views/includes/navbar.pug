@@ -1,4 +1,9 @@
 // Header/Navigation
+- var authorized = false
+  if session.passport
+    if session.passport.user 
+      - authorized = true;
+
 nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
   .container
     a.navbar-brand(href='#') 
@@ -22,8 +27,7 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
             span.sr-only (current)
         li.nav-item
             a.nav-link(href='/articles') Articles
-        //if !session.passport.user
-        if !session.passport
+        if !authorized
           li.nav-item
             a.nav-link(href='/auth#register') Register
           li.nav-item
@@ -35,5 +39,3 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
             a.nav-link(href='/articles/app') CMS
           li.nav-item
             a.nav-link(href='/auth/logout') Logout
-
-
