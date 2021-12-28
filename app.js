@@ -6,8 +6,10 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var articlesRouter = require('./routes/articles');
 var config = require('./config.dev');
 var apiUsersRouter = require('./routes/api/users');
+var apiArticlesRouter = require('./routes/api/articles');
 var LocalStrategy = require('passport-local').Strategy;
 var Users = require('./models/users');
 var apiAuthRouter = require('./routes/api/auth');
@@ -141,7 +143,9 @@ app.use(function(req,res,next){
 });
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/articles', articlesRouter);
 app.use('/api/users', apiUsersRouter);
+app.use('/api/articles', apiArticlesRouter);
 app.use('/api/auth', apiAuthRouter);
 app.use('/auth', authRouter);
 
